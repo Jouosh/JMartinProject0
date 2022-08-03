@@ -14,7 +14,7 @@ public class UpdateExpenseHandler implements Handler {
         int id = Integer.parseInt(ctx.pathParam("id"));
         if (App.expenseService.retrieveExpenseById(id) == null) {
             ctx.status(404);
-            ctx.result("No employee with id of " + id + " was found.");
+            ctx.result("No expense with id of " + id + " was found.");
             return;
         }
 

@@ -56,5 +56,11 @@ public class ExpenseDAOLocal implements ExpenseDAO {
         return expense;
     }
 
+    @Override
+    public Expense updateExpenseStatus(int id, Expense.Status status) {
+        expenseTable.get(id).setStatus(status);
+        return expenseTable.get(id);
+    }
+
 
 }

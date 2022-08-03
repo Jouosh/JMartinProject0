@@ -17,4 +17,6 @@ public interface ExpenseDAO {
     //Update
     Expense updateExpense(Expense expense);
 
+    Expense updateExpenseStatus(int id, Expense.Status status);
+
 }

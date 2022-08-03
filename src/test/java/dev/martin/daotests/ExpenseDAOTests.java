@@ -54,4 +54,11 @@ public class ExpenseDAOTests {
         Assertions.assertEquals(1, expenses.size());
     }
 
+    @Test
+    @Order(6)
+    public void update_expense_status() {
+        Expense expense = expenseDAO.updateExpenseStatus(1, Expense.Status.APPROVED);
+        Assertions.assertEquals(Expense.Status.APPROVED, expenseDAO.getExpenseById(1).getStatus());
+    }
+
 }

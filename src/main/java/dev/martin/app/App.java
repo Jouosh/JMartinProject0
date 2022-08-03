@@ -3,10 +3,7 @@ package dev.martin.app;
 import dev.martin.data.EmployeeDAOLocal;
 import dev.martin.data.ExpenseDAOLocal;
 import dev.martin.handlers.employeehandlers.*;
-import dev.martin.handlers.expensehandlers.CreateExpenseHandler;
-import dev.martin.handlers.expensehandlers.GetExpenseByIdHandler;
-import dev.martin.handlers.expensehandlers.GetExpensesHandler;
-import dev.martin.handlers.expensehandlers.UpdateExpenseHandler;
+import dev.martin.handlers.expensehandlers.*;
 import dev.martin.services.EmployeeService;
 import dev.martin.services.EmployeeServiceImpl;
 import dev.martin.services.ExpenseService;
@@ -35,6 +32,7 @@ public class App {
         GetExpensesHandler getExpensesHandler = new GetExpensesHandler();
         GetExpenseByIdHandler getExpenseByIdHandler = new GetExpenseByIdHandler();
         UpdateExpenseHandler updateExpenseHandler = new UpdateExpenseHandler();
+        UpdateExpenseStatusHandler updateExpenseStatusHandler = new UpdateExpenseStatusHandler();
 
         //Employee routes
         app.post("/employees", createEmployeeHandler);
@@ -48,6 +46,7 @@ public class App {
         app.get("/expenses", getExpensesHandler);
         app.get("/expenses/{id}", getExpenseByIdHandler);
         app.put("/expenses/{id}", updateExpenseHandler);
+        app.patch("/expenses/{id}/{status}", updateExpenseStatusHandler);
 
         app.start();
 

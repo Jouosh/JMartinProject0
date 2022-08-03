@@ -76,4 +76,15 @@ public class ExpenseServiceImpl implements ExpenseService{
         return newExpense;
 
     }
+
+    @Override
+    public Expense modifyExpenseStatus(int id, Expense.Status status) {
+
+        //Check that expense is still pending, throw exception if not
+        if (expenseDAO.getExpenseById(id).getStatus() != Expense.Status.PENDING) {
+            throw new RuntimeException("An expense can not be edited once its been approved or denied");
+        }
+
+        return expenseDAO.updateExpenseStatus(id, status);
+    }
 }
