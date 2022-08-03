@@ -1,4 +1,4 @@
-package dev.martin.handlers.employeehandlers;
+package dev.martin.handlers;
 
 import dev.martin.app.App;
 import io.javalin.http.Context;

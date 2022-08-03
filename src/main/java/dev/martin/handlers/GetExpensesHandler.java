@@ -1,4 +1,4 @@
-package dev.martin.handlers.expensehandlers;
+package dev.martin.handlers;
 
 import com.google.gson.Gson;
 import dev.martin.app.App;

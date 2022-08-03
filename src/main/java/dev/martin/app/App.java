@@ -2,8 +2,7 @@ package dev.martin.app;
 
 import dev.martin.data.EmployeeDAOLocal;
 import dev.martin.data.ExpenseDAOLocal;
-import dev.martin.handlers.employeehandlers.*;
-import dev.martin.handlers.expensehandlers.*;
+import dev.martin.handlers.*;
 import dev.martin.services.EmployeeService;
 import dev.martin.services.EmployeeServiceImpl;
 import dev.martin.services.ExpenseService;
