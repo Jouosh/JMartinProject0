@@ -7,26 +7,30 @@ import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 
-public class CreateExpenseHandler implements Handler {
+public class CreateExpenseWithIssuerHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
+
+        int issuer = Integer.parseInt(ctx.pathParam("issuer"));
+
+        if (App.employeeService.retrieveEmployeeById(issuer) == null) {
+            ctx.status(404);
+            ctx.result("Employee of id " + issuer + " was not found.");
+            return;
+        }
 
         //Get info from json and turn it into an expense
         String inJson = ctx.body();
         Gson gson = new Gson();
         Expense expense = gson.fromJson(inJson, Expense.class);
+        expense.setIssuer(issuer);
 
-        //Send object down to service layer, get back result
         Expense registeredExpense = App.expenseService.registerExpense(expense);
 
-        //Send info back out with json
         String outJson = gson.toJson(registeredExpense);
         ctx.status(201);
         ctx.result(outJson);
-
-
-
     }
 
 }
