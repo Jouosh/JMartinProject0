@@ -6,6 +6,7 @@ import dev.martin.handlers.employeehandlers.*;
 import dev.martin.handlers.expensehandlers.CreateExpenseHandler;
 import dev.martin.handlers.expensehandlers.GetExpenseByIdHandler;
 import dev.martin.handlers.expensehandlers.GetExpensesHandler;
+import dev.martin.handlers.expensehandlers.UpdateExpenseHandler;
 import dev.martin.services.EmployeeService;
 import dev.martin.services.EmployeeServiceImpl;
 import dev.martin.services.ExpenseService;
@@ -33,6 +34,7 @@ public class App {
         CreateExpenseHandler createExpenseHandler = new CreateExpenseHandler();
         GetExpensesHandler getExpensesHandler = new GetExpensesHandler();
         GetExpenseByIdHandler getExpenseByIdHandler = new GetExpenseByIdHandler();
+        UpdateExpenseHandler updateExpenseHandler = new UpdateExpenseHandler();
 
         //Employee routes
         app.post("/employees", createEmployeeHandler);
@@ -45,6 +47,7 @@ public class App {
         app.post("/expenses", createExpenseHandler);
         app.get("/expenses", getExpensesHandler);
         app.get("/expenses/{id}", getExpenseByIdHandler);
+        app.put("/expenses/{id}", updateExpenseHandler);
 
         app.start();
 

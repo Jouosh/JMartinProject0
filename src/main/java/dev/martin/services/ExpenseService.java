@@ -12,4 +12,6 @@ public interface ExpenseService {
     public Expense retrieveExpenseById(int id);
     public List<Expense> retrieveExpenseByStatus(Expense.Status status);
 
+    public Expense modifyExpense(Expense expense);
+
 }

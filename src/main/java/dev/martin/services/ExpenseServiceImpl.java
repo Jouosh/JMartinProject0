@@ -51,4 +51,29 @@ public class ExpenseServiceImpl implements ExpenseService{
     public List<Expense> retrieveExpenseByStatus(Expense.Status status) {
         return expenseDAO.getExpenseByStatus(status);
     }
+
+    @Override
+    public Expense modifyExpense(Expense expense) {
+
+        //If the previous expense was not pending, it can not be changed, this checks for that
+        Expense oldExpense = expenseDAO.getExpenseById(expense.getId());
+        if (oldExpense.getStatus() != Expense.Status.PENDING) {
+            throw new RuntimeException("An expense can not be edited once its been approved or denied");
+        }
+
+        //Check that there is a valid issuer
+        if (expense.getIssuer() <= 0) {
+            throw new RuntimeException("Expenses must have the issuing employee's id attached");
+        }
+
+        //Check that the amount is valid
+        if (expense.getAmount() < 0) {
+            throw new RuntimeException("Expenses must have a positive amount spent");
+        }
+
+        //call data layer and return
+        Expense newExpense = expenseDAO.updateExpense(expense);
+        return newExpense;
+
+    }
 }

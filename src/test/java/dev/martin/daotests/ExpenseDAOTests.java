@@ -40,9 +40,18 @@ public class ExpenseDAOTests {
 
     @Test
     @Order(4)
+    public void update_expense() {
+        Expense expense = new Expense(2, 1005, 5, "nope",
+                Expense.Type.TRAVEL, Expense.Status.APPROVED);
+        expenseDAO.updateExpense(expense);
+        Assertions.assertEquals(1005, expenseDAO.getExpenseById(2).getAmount());
+    }
+
+    @Test
+    @Order(5)
     public void get_expense_by_status() {
         List<Expense> expenses = expenseDAO.getExpenseByStatus(Expense.Status.APPROVED);
-        Assertions.assertEquals(0, expenses.size());
+        Assertions.assertEquals(1, expenses.size());
     }
 
 }
