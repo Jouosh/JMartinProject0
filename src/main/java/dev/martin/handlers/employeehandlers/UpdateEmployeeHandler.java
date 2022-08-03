@@ -1,4 +1,4 @@
-package dev.martin.handlers;
+package dev.martin.handlers.employeehandlers;
 
 import com.google.gson.Gson;
 import dev.martin.app.App;

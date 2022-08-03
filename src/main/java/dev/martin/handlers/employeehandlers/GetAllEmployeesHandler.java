@@ -1,4 +1,4 @@
-package dev.martin.handlers;
+package dev.martin.handlers.employeehandlers;
 
 import com.google.gson.Gson;
 import dev.martin.app.App;
@@ -15,20 +15,14 @@ public class GetAllEmployeesHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
 
-        //Create variables, one list, and one string for output
+        //Create variable, one list
         List<Employee> employeeList = App.employeeService.retrieveAllEmployees();
-        String result = "";
-
-        //Convert list into json, put in result
         Gson gson = new Gson();
-        for (int i = 0; i < employeeList.size(); i++) {
-            String json = gson.toJson(employeeList.get(i));
-            result += json + "\n";
-        }
+        String outJson = gson.toJson(employeeList);
 
         //Output list in json form
         ctx.status(200);
-        ctx.result(result);
+        ctx.result(outJson);
 
     }
 }

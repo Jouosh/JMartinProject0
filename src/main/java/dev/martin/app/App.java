@@ -2,7 +2,10 @@ package dev.martin.app;
 
 import dev.martin.data.EmployeeDAOLocal;
 import dev.martin.data.ExpenseDAOLocal;
-import dev.martin.handlers.*;
+import dev.martin.handlers.employeehandlers.*;
+import dev.martin.handlers.expensehandlers.CreateExpenseHandler;
+import dev.martin.handlers.expensehandlers.GetExpenseByIdHandler;
+import dev.martin.handlers.expensehandlers.GetExpensesHandler;
 import dev.martin.services.EmployeeService;
 import dev.martin.services.EmployeeServiceImpl;
 import dev.martin.services.ExpenseService;

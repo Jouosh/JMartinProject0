@@ -1,4 +1,4 @@
-package dev.martin.handlers;
+package dev.martin.handlers.expensehandlers;
 
 import com.google.gson.Gson;
 import dev.martin.app.App;
@@ -30,11 +30,7 @@ public class GetExpensesHandler implements Handler {
         }
 
         Gson gson = new Gson();
-        String outJson = "";
-
-        for (int i = 0; i < expenses.size(); i++) {
-            outJson += gson.toJson(expenses.get(i)) + "\n";
-        }
+        String outJson = gson.toJson(expenses);
 
         ctx.status(200);
         ctx.result(outJson);
