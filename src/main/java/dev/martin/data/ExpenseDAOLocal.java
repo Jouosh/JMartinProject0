@@ -1,6 +1,7 @@
 package dev.martin.data;
 
 import dev.martin.entities.Expense;
+import dev.martin.entities.Status;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ public class ExpenseDAOLocal implements ExpenseDAO {
     }
 
     @Override
-    public List<Expense> getExpenseByStatus(Expense.Status status) {
+    public List<Expense> getExpenseByStatus(Status status) {
         List<Expense> expenses = new ArrayList();
 
         for (Map.Entry<Integer, Expense> entry : expenseTable.entrySet()) {
@@ -57,9 +58,22 @@ public class ExpenseDAOLocal implements ExpenseDAO {
     }
 
     @Override
-    public Expense updateExpenseStatus(int id, Expense.Status status) {
+    public Expense updateExpenseStatus(int id, Status status) {
         expenseTable.get(id).setStatus(status);
         return expenseTable.get(id);
+    }
+
+    @Override
+    public boolean deleteExpense(int id) {
+
+        Expense expense = expenseTable.remove(id);
+
+        if (expense == null) {
+            return false;
+        }
+
+        return true;
+
     }
 
 

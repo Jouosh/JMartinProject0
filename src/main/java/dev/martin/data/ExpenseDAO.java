@@ -1,6 +1,7 @@
 package dev.martin.data;
 
 import dev.martin.entities.Expense;
+import dev.martin.entities.Status;
 
 import java.util.List;
 
@@ -12,11 +13,13 @@ public interface ExpenseDAO {
     //Read
     List<Expense> getAllExpenses();
     Expense getExpenseById(int id);
-    List<Expense> getExpenseByStatus(Expense.Status status);
+    List<Expense> getExpenseByStatus(Status status);
 
     //Update
     Expense updateExpense(Expense expense);
+    Expense updateExpenseStatus(int id, Status status);
 
-    Expense updateExpenseStatus(int id, Expense.Status status);
+    //Delete
+    boolean deleteExpense(int id);
 
 }

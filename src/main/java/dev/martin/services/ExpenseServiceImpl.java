@@ -3,6 +3,7 @@ package dev.martin.services;
 import dev.martin.data.ExpenseDAO;
 import dev.martin.data.ExpenseDAOLocal;
 import dev.martin.entities.Expense;
+import dev.martin.entities.Status;
 
 import java.util.List;
 
@@ -23,8 +24,8 @@ public class ExpenseServiceImpl implements ExpenseService{
         }
 
         //If status is not pending, make it pending
-        if (expense.getStatus() != Expense.Status.PENDING) {
-            expense.setStatus(Expense.Status.PENDING);
+        if (expense.getStatus() != Status.PENDING) {
+            expense.setStatus(Status.PENDING);
         }
 
         //Check that the amount is valid
@@ -48,7 +49,7 @@ public class ExpenseServiceImpl implements ExpenseService{
     }
 
     @Override
-    public List<Expense> retrieveExpenseByStatus(Expense.Status status) {
+    public List<Expense> retrieveExpenseByStatus(Status status) {
         return expenseDAO.getExpenseByStatus(status);
     }
 
@@ -57,7 +58,7 @@ public class ExpenseServiceImpl implements ExpenseService{
 
         //If the previous expense was not pending, it can not be changed, this checks for that
         Expense oldExpense = expenseDAO.getExpenseById(expense.getId());
-        if (oldExpense.getStatus() != Expense.Status.PENDING) {
+        if (oldExpense.getStatus() != Status.PENDING) {
             throw new RuntimeException("An expense can not be edited once its been approved or denied");
         }
 
@@ -78,13 +79,25 @@ public class ExpenseServiceImpl implements ExpenseService{
     }
 
     @Override
-    public Expense modifyExpenseStatus(int id, Expense.Status status) {
+    public Expense modifyExpenseStatus(int id, Status status) {
 
         //Check that expense is still pending, throw exception if not
-        if (expenseDAO.getExpenseById(id).getStatus() != Expense.Status.PENDING) {
+        if (expenseDAO.getExpenseById(id).getStatus() != Status.PENDING) {
             throw new RuntimeException("An expense can not be edited once its been approved or denied");
         }
 
         return expenseDAO.updateExpenseStatus(id, status);
+    }
+
+    @Override
+    public boolean deleteExpense(int id) {
+
+        //Check that expense is pending, throw if not
+        if (expenseDAO.getExpenseById(id).getStatus() != Status.PENDING) {
+            throw new RuntimeException("An expense can not be deleted once its been approved or denied");
+        }
+
+        return expenseDAO.deleteExpense(id);
+
     }
 }

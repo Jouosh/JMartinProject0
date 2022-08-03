@@ -47,6 +47,7 @@ public class App {
         app.get("/expenses/{id}", getExpenseByIdHandler);
         app.put("/expenses/{id}", updateExpenseHandler);
         app.patch("/expenses/{id}/{status}", updateExpenseStatusHandler);
+        app.delete("/expenses/{id}", null);
 
         app.start();
 

@@ -2,18 +2,6 @@ package dev.martin.entities;
 
 public class Expense {
 
-    public enum Type {
-        TRAVEL,
-        FOOD,
-        SUPPLIES,
-        MISCELLANEOUS
-    }
-    public enum Status {
-        PENDING,
-        APPROVED,
-        DENIED
-    }
-
     private int id;
     private int amount;
     private int issuer;

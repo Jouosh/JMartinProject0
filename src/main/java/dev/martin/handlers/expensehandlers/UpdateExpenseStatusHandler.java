@@ -3,6 +3,7 @@ package dev.martin.handlers.expensehandlers;
 import com.google.gson.Gson;
 import dev.martin.app.App;
 import dev.martin.entities.Expense;
+import dev.martin.entities.Status;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
@@ -24,9 +25,9 @@ public class UpdateExpenseStatusHandler implements Handler {
         }
 
         //If status path param is a valid status, then convert from string to status, otherwise pull out
-        Expense.Status status;
+        Status status;
         try {
-            status = Expense.Status.valueOf(statusString);
+            status = Status.valueOf(statusString);
         } catch(IllegalArgumentException e) {
             ctx.result("Status query can only be approved or denied");
             return;
