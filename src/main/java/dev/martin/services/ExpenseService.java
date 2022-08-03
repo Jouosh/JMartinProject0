@@ -12,6 +12,7 @@ public interface ExpenseService {
     public List<Expense> retrieveAllExpenses();
     public Expense retrieveExpenseById(int id);
     public List<Expense> retrieveExpenseByStatus(Status status);
+    public List<Expense> retrieveExpenseByIssuer(int issuer);
 
     public Expense modifyExpense(Expense expense);
     public Expense modifyExpenseStatus(int id, Status status);

@@ -54,6 +54,11 @@ public class ExpenseServiceImpl implements ExpenseService{
     }
 
     @Override
+    public List<Expense> retrieveExpenseByIssuer(int issuer) {
+        return expenseDAO.getExpenseByIssuer(issuer);
+    }
+
+    @Override
     public Expense modifyExpense(Expense expense) {
 
         //If the previous expense was not pending, it can not be changed, this checks for that

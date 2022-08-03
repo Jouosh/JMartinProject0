@@ -42,18 +42,18 @@ public class ExpenseDAOTests {
 
     @Test
     @Order(4)
+    public void get_expense_by_issuer_test() {
+        List<Expense> expenses = expenseDAO.getExpenseByIssuer(5);
+        Assertions.assertEquals(1, expenses.size());
+    }
+
+    @Test
+    @Order(5)
     public void update_expense_test() {
         Expense expense = new Expense(2, 1005, 5, "nope",
                 Type.TRAVEL, Status.APPROVED);
         expenseDAO.updateExpense(expense);
         Assertions.assertEquals(1005, expenseDAO.getExpenseById(2).getAmount());
-    }
-
-    @Test
-    @Order(5)
-    public void get_expense_by_status_test() {
-        List<Expense> expenses = expenseDAO.getExpenseByStatus(Status.APPROVED);
-        Assertions.assertEquals(1, expenses.size());
     }
 
     @Test
@@ -65,6 +65,13 @@ public class ExpenseDAOTests {
 
     @Test
     @Order(7)
+    public void get_expense_by_status_test() {
+        List<Expense> expenses = expenseDAO.getExpenseByStatus(Status.APPROVED);
+        Assertions.assertEquals(2, expenses.size());
+    }
+
+    @Test
+    @Order(8)
     public void delete_expense_test() {
         boolean deleted = expenseDAO.deleteExpense(1);
         Assertions.assertTrue(deleted);

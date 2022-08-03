@@ -52,6 +52,21 @@ public class ExpenseDAOLocal implements ExpenseDAO {
     }
 
     @Override
+    public List<Expense> getExpenseByIssuer(int issuer) {
+
+        List<Expense> expenses = new ArrayList();
+        for (Map.Entry<Integer, Expense> entry : expenseTable.entrySet()) {
+            Expense expense = entry.getValue();
+            if (expense.getIssuer() == issuer) {
+                expenses.add(expense);
+            }
+        }
+
+        return expenses;
+
+    }
+
+    @Override
     public Expense updateExpense(Expense expense) {
         expenseTable.put(expense.getId(), expense);
         return expense;

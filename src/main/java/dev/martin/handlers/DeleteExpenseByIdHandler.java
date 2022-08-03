@@ -15,7 +15,7 @@ public class DeleteExpenseByIdHandler implements Handler {
 
         if (App.expenseService.retrieveExpenseById(id) == null) {
             ctx.status(404);
-            ctx.result("Expense not found");
+            ctx.result("Expense with id " + id + " not found");
         }
         else if (App.expenseService.retrieveExpenseById(id).getStatus() != Status.PENDING) {
             ctx.status(422);

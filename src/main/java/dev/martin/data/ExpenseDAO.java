@@ -14,6 +14,7 @@ public interface ExpenseDAO {
     List<Expense> getAllExpenses();
     Expense getExpenseById(int id);
     List<Expense> getExpenseByStatus(Status status);
+    List<Expense> getExpenseByIssuer(int issuer);
 
     //Update
     Expense updateExpense(Expense expense);
