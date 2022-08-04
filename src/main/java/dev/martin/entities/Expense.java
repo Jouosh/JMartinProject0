@@ -9,6 +9,10 @@ public class Expense {
     private Type type;
     private Status status;
 
+    public Expense() {
+
+    }
+
     public Expense(int id, int amount, int issuer, String description, Type type, Status status) {
         this.id = id;
         this.amount = amount;

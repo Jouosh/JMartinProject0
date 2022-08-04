@@ -2,19 +2,42 @@ package dev.martin.daotests;
 
 import dev.martin.data.EmployeeDAO;
 import dev.martin.data.EmployeeDAOLocal;
+import dev.martin.data.EmployeeDAOPostgres;
 import dev.martin.entities.Employee;
+import dev.martin.utils.ConnectionUtil;
 import org.junit.jupiter.api.*;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class EmployeeDAOTests {
 
-    static EmployeeDAO employeeDAO = new EmployeeDAOLocal();
+    static EmployeeDAO employeeDAO = new EmployeeDAOPostgres();
+
+    //Before running tests make the table required
+    @BeforeAll
+    static void setup() {
+        try (Connection conn = ConnectionUtil.createConnection()) {
+            String sql = "create table employee(" + "\n" +
+                    "id serial primary key," + "\n" +
+                    "name varchar(50)," + "\n" +
+                    "salary int check (salary > 0)" + "\n" +
+                    ");";
+
+            Statement statement =conn.createStatement();
+            statement.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     //Create and add an employee, then check if added
     @Test
     @Order(1)
     public void create_employee_test() {
-        Employee employee = new Employee(0, "Jim Henson", 200_000);
+        Employee employee = new Employee(0, "Jim Henson", 200000);
         Employee createdEmployee = this.employeeDAO.createEmployee(employee);
         Assertions.assertNotEquals(0, createdEmployee.getId());
     }
@@ -52,6 +75,18 @@ public class EmployeeDAOTests {
     public void delete_employee_by_id_test() {
         boolean result = employeeDAO.deleteEmployee(1);
         Assertions.assertTrue(result);
+    }
+
+    @AfterAll
+    static void teardown() {
+        try (Connection conn = ConnectionUtil.createConnection()) {
+            String sql = "drop table employee";
+            Statement statement = conn.createStatement();
+            statement.execute(sql);
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
