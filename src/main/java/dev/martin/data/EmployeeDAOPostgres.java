@@ -102,11 +102,45 @@ public class EmployeeDAOPostgres implements EmployeeDAO{
 
     @Override
     public Employee updateEmployee(Employee employee) {
+
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            //Create prepared statement for update, fill in blanks
+            String sql = "update employee set name = ?, salary = ? where id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, employee.getName());
+            preparedStatement.setInt(2, employee.getSalary());
+            preparedStatement.setInt(3, employee.getId());
+
+            //execute update and return employee
+            preparedStatement.executeUpdate();
+            return employee;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     @Override
     public Boolean deleteEmployee(int id) {
-        return null;
+
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            //create prepared delete statement, set id to parameter id
+            String sql = "delete from employee where id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            //execute and return true
+            preparedStatement.execute();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 }

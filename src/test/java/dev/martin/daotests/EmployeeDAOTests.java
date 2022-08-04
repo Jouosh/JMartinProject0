@@ -77,6 +77,7 @@ public class EmployeeDAOTests {
         Assertions.assertTrue(result);
     }
 
+    //After all tests, drop test table
     @AfterAll
     static void teardown() {
         try (Connection conn = ConnectionUtil.createConnection()) {
