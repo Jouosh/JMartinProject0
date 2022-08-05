@@ -2,6 +2,7 @@ package dev.martin.daotests;
 
 import dev.martin.data.ExpenseDAO;
 import dev.martin.data.ExpenseDAOLocal;
+import dev.martin.data.ExpenseDAOPostgres;
 import dev.martin.entities.Expense;
 import dev.martin.entities.Status;
 import dev.martin.entities.Type;
@@ -12,12 +13,12 @@ import java.util.List;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ExpenseDAOTests {
 
-    static ExpenseDAO expenseDAO = new ExpenseDAOLocal();
+    static ExpenseDAO expenseDAO = new ExpenseDAOPostgres();
 
     @Test
     @Order(1)
     public void create_expense_test() {
-        Expense expense = new Expense(0, 500, 2, "Yeahhhhh",
+        Expense expense = new Expense(0, 500, 1, "Yeahhhhh",
                 Type.TRAVEL, Status.PENDING);
         expenseDAO.createExpense(expense);
         Assertions.assertNotEquals(0, expense.getId());
@@ -26,7 +27,7 @@ public class ExpenseDAOTests {
     @Test
     @Order(2)
     public void get_all_expenses_test() {
-        Expense expense = new Expense(0, 1000, 5, "NOOOOooooo",
+        Expense expense = new Expense(0, 1000, 2, "NOOOOooooo",
                 Type.SUPPLIES, Status.PENDING);
         expenseDAO.createExpense(expense);
         List<Expense> expenses = expenseDAO.getAllExpenses();
@@ -43,14 +44,14 @@ public class ExpenseDAOTests {
     @Test
     @Order(4)
     public void get_expense_by_issuer_test() {
-        List<Expense> expenses = expenseDAO.getExpenseByIssuer(5);
+        List<Expense> expenses = expenseDAO.getExpenseByIssuer(2);
         Assertions.assertEquals(1, expenses.size());
     }
 
     @Test
     @Order(5)
     public void update_expense_test() {
-        Expense expense = new Expense(2, 1005, 5, "nope",
+        Expense expense = new Expense(2, 1005, 2, "nope",
                 Type.TRAVEL, Status.APPROVED);
         expenseDAO.updateExpense(expense);
         Assertions.assertEquals(1005, expenseDAO.getExpenseById(2).getAmount());
