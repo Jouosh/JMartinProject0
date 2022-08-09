@@ -2,9 +2,12 @@ package dev.martin.data;
 
 import dev.martin.entities.Expense;
 import dev.martin.entities.Status;
+import dev.martin.entities.Type;
 import dev.martin.utils.ConnectionUtil;
 
+import java.awt.*;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseDAOPostgres implements ExpenseDAO {
@@ -36,27 +39,130 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
             e.printStackTrace();
         }
 
-
         return null;
     }
 
     @Override
     public List<Expense> getAllExpenses() {
+
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            String sql = "select * from expense";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Expense> expenseList = new ArrayList();
+
+            while (resultSet.next()) {
+                Expense expense = new Expense();
+                expense.setId(resultSet.getInt("id"));
+                expense.setAmount(resultSet.getInt("amount"));
+                expense.setIssuer(resultSet.getInt("issuer"));
+                expense.setDescription(resultSet.getString("description"));
+                expense.setType(Type.valueOf(resultSet.getString("type")));
+                expense.setStatus(Status.valueOf(resultSet.getString("status")));
+                expenseList.add(expense);
+            }
+
+            return expenseList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     @Override
     public Expense getExpenseById(int id) {
+
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            String sql = "select * from expense where id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            Expense expense = new Expense();
+            expense.setId(resultSet.getInt("id"));
+            expense.setAmount(resultSet.getInt("amount"));
+            expense.setIssuer(resultSet.getInt("issuer"));
+            expense.setDescription(resultSet.getString("description"));
+            expense.setType(Type.valueOf(resultSet.getString("type")));
+            expense.setStatus(Status.valueOf(resultSet.getString("status")));
+
+            return expense;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public List<Expense> getExpenseByStatus(Status status) {
+
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            String sql = "select * from expense where status = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, status.toString());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Expense> expenseList = new ArrayList();
+
+            while (resultSet.next()) {
+                Expense expense = new Expense();
+                expense.setId(resultSet.getInt("id"));
+                expense.setAmount(resultSet.getInt("amount"));
+                expense.setIssuer(resultSet.getInt("issuer"));
+                expense.setDescription(resultSet.getString("description"));
+                expense.setType(Type.valueOf(resultSet.getString("type")));
+                expense.setStatus(Status.valueOf(resultSet.getString("status")));
+                expenseList.add(expense);
+            }
+
+            return expenseList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public List<Expense> getExpenseByIssuer(int issuer) {
+
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            String sql = "select * from expense where issuer = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, issuer);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            List<Expense> expenseList = new ArrayList();
+
+            while (resultSet.next()) {
+                Expense expense = new Expense();
+                expense.setId(resultSet.getInt("id"));
+                expense.setAmount(resultSet.getInt("amount"));
+                expense.setIssuer(resultSet.getInt("issuer"));
+                expense.setDescription(resultSet.getString("description"));
+                expense.setType(Type.valueOf(resultSet.getString("type")));
+                expense.setStatus(Status.valueOf(resultSet.getString("status")));
+                expenseList.add(expense);
+            }
+
+            return expenseList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
