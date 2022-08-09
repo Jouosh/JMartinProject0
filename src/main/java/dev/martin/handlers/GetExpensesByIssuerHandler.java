@@ -14,6 +14,7 @@ public class GetExpensesByIssuerHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
 
+        //get issuer from path, and check if valid
         int issuer = Integer.parseInt(ctx.pathParam("issuer"));
 
         if (App.employeeService.retrieveEmployeeById(issuer) == null) {
@@ -22,6 +23,7 @@ public class GetExpensesByIssuerHandler implements Handler {
             return;
         }
 
+        //If valid, get results and put into body
         List<Expense> expenseList = App.expenseService.retrieveExpenseByIssuer(issuer);
 
         Gson gson = new Gson();

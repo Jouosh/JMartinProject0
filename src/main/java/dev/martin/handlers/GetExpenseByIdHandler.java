@@ -12,6 +12,7 @@ public class GetExpenseByIdHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
 
+        //get id from path and retrieve expense, make sure its valid
         int id = Integer.parseInt(ctx.pathParam("id"));
         Expense expense = App.expenseService.retrieveExpenseById(id);
 
@@ -19,6 +20,7 @@ public class GetExpenseByIdHandler implements Handler {
             ctx.status(404);
             ctx.result("No expense of id " + id + " was found");
         }
+        //if valid, turn to json, and put into result
         else {
             Gson gson = new Gson();
             String outJson = gson.toJson(expense);

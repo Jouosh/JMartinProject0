@@ -5,12 +5,13 @@ import dev.martin.entities.Status;
 import dev.martin.entities.Type;
 import dev.martin.utils.ConnectionUtil;
 
-import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseDAOPostgres implements ExpenseDAO {
+
+    //Create
     @Override
     public Expense createExpense(Expense expense) {
 
@@ -42,11 +43,13 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
         return null;
     }
 
+    //Read
     @Override
     public List<Expense> getAllExpenses() {
 
         try (Connection conn = ConnectionUtil.createConnection()) {
 
+            //Create and execute select statement, put into resultSet
             String sql = "select * from expense";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
 
@@ -54,6 +57,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
 
             List<Expense> expenseList = new ArrayList();
 
+            //put results into list and return
             while (resultSet.next()) {
                 Expense expense = new Expense();
                 expense.setId(resultSet.getInt("id"));
@@ -79,6 +83,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
 
         try (Connection conn = ConnectionUtil.createConnection()) {
 
+            //create and execute select statement, put result in resultSet
             String sql = "select * from expense where id = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, id);
@@ -86,6 +91,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
 
+            //put resultSet into expense and return
             Expense expense = new Expense();
             expense.setId(resultSet.getInt("id"));
             expense.setAmount(resultSet.getInt("amount"));
@@ -107,12 +113,14 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
 
         try (Connection conn = ConnectionUtil.createConnection()) {
 
+            //Create and execute statement, put result into resultSet
             String sql = "select * from expense where status = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setString(1, status.toString());
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            //put resultSet info into expenseList and return
             List<Expense> expenseList = new ArrayList();
 
             while (resultSet.next()) {
@@ -139,12 +147,14 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
 
         try (Connection conn = ConnectionUtil.createConnection()) {
 
+            //Create and execute select statement, put result into resultSet
             String sql = "select * from expense where issuer = ?";
             PreparedStatement preparedStatement = conn.prepareStatement(sql);
             preparedStatement.setInt(1, issuer);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
+            //Create list and put resultSet into expense, then into list, then return
             List<Expense> expenseList = new ArrayList();
 
             while (resultSet.next()) {
@@ -182,7 +192,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
             preparedStatement.setInt(6, expense.getId());
 
 
-            //execute update and return employee
+            //execute update and return expense
             preparedStatement.executeUpdate();
             return expense;
 
@@ -206,6 +216,7 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
 
             preparedStatement.executeUpdate();
 
+            //call get by id, and return
             return getExpenseById(id);
 
         } catch (SQLException e) {

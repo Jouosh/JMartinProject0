@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAOPostgres implements EmployeeDAO{
+
+    //Create
     @Override
     public Employee createEmployee(Employee employee) {
 
@@ -40,6 +42,7 @@ public class EmployeeDAOPostgres implements EmployeeDAO{
 
     }
 
+    //Read
     @Override
     public List<Employee> getAllEmployees() {
 
@@ -100,6 +103,7 @@ public class EmployeeDAOPostgres implements EmployeeDAO{
         return null;
     }
 
+    //Update
     @Override
     public Employee updateEmployee(Employee employee) {
 
@@ -123,6 +127,7 @@ public class EmployeeDAOPostgres implements EmployeeDAO{
         return null;
     }
 
+    //Delete
     @Override
     public Boolean deleteEmployee(int id) {
 

@@ -9,12 +9,15 @@ import java.util.List;
 
 public class ExpenseServiceImpl implements ExpenseService{
 
+    //Data layer connection
     private ExpenseDAO expenseDAO;
 
+    //Constructor
     public ExpenseServiceImpl(ExpenseDAO expenseDAO) {
         this.expenseDAO = expenseDAO;
     }
 
+    //Create
     @Override
     public Expense registerExpense(Expense expense) {
 
@@ -38,6 +41,7 @@ public class ExpenseServiceImpl implements ExpenseService{
         return savedExpense;
     }
 
+    //Read
     @Override
     public List<Expense> retrieveAllExpenses() {
         return expenseDAO.getAllExpenses();
@@ -58,6 +62,7 @@ public class ExpenseServiceImpl implements ExpenseService{
         return expenseDAO.getExpenseByIssuer(issuer);
     }
 
+    //Update
     @Override
     public Expense modifyExpense(Expense expense) {
 
@@ -94,6 +99,7 @@ public class ExpenseServiceImpl implements ExpenseService{
         return expenseDAO.updateExpenseStatus(id, status);
     }
 
+    //delete
     @Override
     public boolean deleteExpense(int id) {
 

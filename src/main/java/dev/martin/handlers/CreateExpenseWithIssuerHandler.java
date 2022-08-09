@@ -12,6 +12,7 @@ public class CreateExpenseWithIssuerHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
 
+        //get issuer from path and make sure its valid
         int issuer = Integer.parseInt(ctx.pathParam("issuer"));
 
         if (App.employeeService.retrieveEmployeeById(issuer) == null) {

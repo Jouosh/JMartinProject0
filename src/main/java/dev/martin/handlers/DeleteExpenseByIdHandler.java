@@ -11,6 +11,7 @@ public class DeleteExpenseByIdHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) throws Exception {
 
+        //Get id from path, make sure it's valid
         int id = Integer.parseInt(ctx.pathParam("id"));
 
         if (App.expenseService.retrieveExpenseById(id) == null) {
@@ -21,6 +22,7 @@ public class DeleteExpenseByIdHandler implements Handler {
             ctx.status(422);
             ctx.result("Expenses that have already been approved or denied cannot be deleted.");
         }
+        //If valid, delete, and make body confirm
         else {
             App.expenseService.deleteExpense(id);
             ctx.result("Deleted Expense");

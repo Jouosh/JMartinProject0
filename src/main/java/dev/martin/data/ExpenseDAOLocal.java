@@ -24,6 +24,7 @@ public class ExpenseDAOLocal implements ExpenseDAO {
         return expense;
     }
 
+    //Read
     @Override
     public List<Expense> getAllExpenses() {
 
@@ -66,6 +67,7 @@ public class ExpenseDAOLocal implements ExpenseDAO {
 
     }
 
+    //Update
     @Override
     public Expense updateExpense(Expense expense) {
         expenseTable.put(expense.getId(), expense);
@@ -78,6 +80,7 @@ public class ExpenseDAOLocal implements ExpenseDAO {
         return expenseTable.get(id);
     }
 
+    //Delete
     @Override
     public boolean deleteExpense(int id) {
 

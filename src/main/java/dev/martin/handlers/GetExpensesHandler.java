@@ -15,6 +15,7 @@ public class GetExpensesHandler implements Handler {
     @Override
     public void handle(@NotNull Context ctx) {
 
+        //try to get status from path, if exists and is valid put status results into list
         String statusString = ctx.queryParam("status");
         List<Expense> expenses;
         if (statusString != null) {
@@ -26,10 +27,12 @@ public class GetExpensesHandler implements Handler {
                 return;
             }
         }
+        //if status is not in path get all expenses into list
         else {
             expenses = App.expenseService.retrieveAllExpenses();
         }
 
+        //turn list into json and put into body
         Gson gson = new Gson();
         String outJson = gson.toJson(expenses);
 

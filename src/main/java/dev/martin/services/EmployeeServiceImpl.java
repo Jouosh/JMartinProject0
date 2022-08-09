@@ -7,12 +7,15 @@ import java.util.List;
 
 public class EmployeeServiceImpl implements EmployeeService{
 
+    //connection to data layer
     private EmployeeDAO employeeDAO;
 
+    //constructor
     public EmployeeServiceImpl(EmployeeDAO employeeDAO) {
         this.employeeDAO = employeeDAO;
     }
 
+    //Create
     @Override
     public Employee registerEmployee(Employee employee) {
 
@@ -30,6 +33,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         return savedEmployee;
     }
 
+    //Read
     @Override
     public List<Employee> retrieveAllEmployees() {
         return employeeDAO.getAllEmployees();
@@ -40,6 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         return employeeDAO.getEmployeeById(id);
     }
 
+    //Update
     @Override
     public Employee modifyEmployee(Employee employee) {
 
@@ -55,6 +60,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         return employeeDAO.updateEmployee(employee);
     }
 
+    //Delete
     @Override
     public boolean deleteEmployee(int id) {
         boolean deleted = employeeDAO.deleteEmployee(id);

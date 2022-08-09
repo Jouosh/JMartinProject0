@@ -13,6 +13,7 @@ import io.javalin.Javalin;
 
 public class App {
 
+    //Making service and dao layers
     public static EmployeeService employeeService = new EmployeeServiceImpl(new EmployeeDAOPostgres());
     public static ExpenseService expenseService = new ExpenseServiceImpl(new ExpenseDAOPostgres());
 
@@ -55,6 +56,7 @@ public class App {
         app.get("/employees/{issuer}/expenses", getExpensesByIssuerHandler);
         app.post("/employees/{issuer}/expenses", createExpenseWithIssuerHandler);
 
+        //Run the app
         app.start();
 
     }
