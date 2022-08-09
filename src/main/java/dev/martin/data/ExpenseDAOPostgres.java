@@ -168,11 +168,50 @@ public class ExpenseDAOPostgres implements ExpenseDAO {
 
     @Override
     public Expense updateExpense(Expense expense) {
+
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            //Create prepared statement for update, fill in blanks
+            String sql = "update expense set amount = ?, issuer = ?, description = ?, type = ?, status = ? where id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setInt(1, expense.getAmount());
+            preparedStatement.setInt(2, expense.getIssuer());
+            preparedStatement.setString(3, expense.getDescription());
+            preparedStatement.setString(4, expense.getType().toString());
+            preparedStatement.setString(5, expense.getStatus().toString());
+            preparedStatement.setInt(6, expense.getId());
+
+
+            //execute update and return employee
+            preparedStatement.executeUpdate();
+            return expense;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
     @Override
     public Expense updateExpenseStatus(int id, Status status) {
+
+        try (Connection conn = ConnectionUtil.createConnection()) {
+
+            //Create prepared statement for update, fill in blanks
+            String sql = "update expense set status = ? where id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, status.toString());
+            preparedStatement.setInt(2, id);
+
+            preparedStatement.executeUpdate();
+
+            return getExpenseById(id);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

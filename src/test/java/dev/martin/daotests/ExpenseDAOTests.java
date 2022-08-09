@@ -106,7 +106,7 @@ public class ExpenseDAOTests {
     @Test
     @Order(7)
     public void get_expense_by_status_test() {
-        List<Expense> expenses = expenseDAO.getExpenseByStatus(Status.PENDING);
+        List<Expense> expenses = expenseDAO.getExpenseByStatus(Status.APPROVED);
         Assertions.assertEquals(2, expenses.size());
     }
 
