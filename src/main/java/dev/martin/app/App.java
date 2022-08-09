@@ -3,6 +3,7 @@ package dev.martin.app;
 import dev.martin.data.EmployeeDAOLocal;
 import dev.martin.data.EmployeeDAOPostgres;
 import dev.martin.data.ExpenseDAOLocal;
+import dev.martin.data.ExpenseDAOPostgres;
 import dev.martin.handlers.*;
 import dev.martin.services.EmployeeService;
 import dev.martin.services.EmployeeServiceImpl;
@@ -13,7 +14,7 @@ import io.javalin.Javalin;
 public class App {
 
     public static EmployeeService employeeService = new EmployeeServiceImpl(new EmployeeDAOPostgres());
-    public static ExpenseService expenseService = new ExpenseServiceImpl(new ExpenseDAOLocal());
+    public static ExpenseService expenseService = new ExpenseServiceImpl(new ExpenseDAOPostgres());
 
     public static void main(String[] args) {
 
